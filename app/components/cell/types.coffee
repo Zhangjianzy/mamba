@@ -1,42 +1,40 @@
 _ = require 'underscore'
 {errors} = require '../../utility'
+{covenance, ABC} = require 'covenance'
+
+AbstractCell = ABC
+  name: 'AbstractCell'
+  klass:
+    covenance: covenance.of ['shortname', _.isString]
+  proto:
+    props:
+      toString: ->
+        @constructor.shortname
 
 
-class CellType
-
-  constructor: ->
-    if @constructor == CellType
-      throw new Error "Can't instantiate abstract class CellType"
-    else if !_.isString @constructor.name
-      throw new errors.NotImplemented("`name` property not implemented")
-
-  toString: ->
-    @constructor.name
+class Item extends AbstractCell
+  @shortname: "item"
+AbstractCell.implemented_by Item
 
 
-class Item extends CellType
-
-  @name: "item"
-
-
-class Void extends CellType
-
-  @name: "void"
+class Void extends AbstractCell
+  @shortname: "void"
+AbstractCell.implemented_by Void
 
 
-class Wall extends CellType
-
-  @name: "wall"
-
-
-class Snake extends CellType
-
-  @name: "snake"
+class Wall extends AbstractCell
+  @shortname: "wall"
+AbstractCell.implemented_by Wall
 
 
-class Collision extends CellType
+class Snake extends AbstractCell
+  @shortname: "snake"
+AbstractCell.implemented_by Snake
 
-  @name: "collision"
+
+class Collision extends AbstractCell
+  @shortname: "collision"
+AbstractCell.implemented_by Collision
 
 
 module.exports =
