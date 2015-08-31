@@ -1,11 +1,10 @@
-Action = require './action'
+AbstractAction = require './action'
 _ = require 'underscore'
 Immutable = require 'immutable'
 {XY} = require '../utility'
 
 
-class KeyDownAction extends Action
-
+class KeyDownAction extends AbstractAction
   @KEYCODES: Immutable.Set [
     37 # ←
     38 # ↑
@@ -14,45 +13,44 @@ class KeyDownAction extends Action
     82 # r
   ]
 
-  @validate_payload: (payload) ->
-    unless _.isObject(payload) && _.isNumber(payload.keycode)
-      throw new Error 'Expected payload to have a number keycode property'
+  @METHOD_KEYS: Immutable.Map [
+    [82, 'restart']
+  ]
 
-  @post_value_of_hook: (payload) ->
-    {keycode} = payload
-
-    if MotionKeyAction.KEYCODE_MAP.has keycode
-      new MotionKeyAction(payload)
-    else if MethodKeyAction.KEYCODE_MAP.has keycode
-      new MethodKeyAction(payload)
-    else
-      throw new Error "Unsupported keycode: #{keycode}; try #{@KEYCODES}"
-
-  keycode: ->
-    @payload.keycode
-
-
-class MotionKeyAction extends KeyDownAction
-
-  @KEYCODE_MAP: Immutable.Map [
+  @MOTION_KEYS: Immutable.Map [
     [37, XY.left()]
     [38, XY.up()]
     [39, XY.right()]
     [40, XY.down()]
   ]
 
+  @validate_payload: (payload) ->
+    unless _.isObject(payload) && _.isNumber(payload.keycode)
+      throw new Error 'Expected payload to have a number keycode property'
+
+  @post_value_of_hook: (payload) ->
+    {keycode} = payload
+    if @KEYCODES.has keycode
+      super(payload)
+    else
+      throw new Error "Unsupported keycode: #{keycode}; try #{@KEYCODES}"
+
+  keycode: ->
+    @payload.keycode
+
+  is_motion: ->
+    @constructor.MOTION_KEYS.has @keycode()
+
+  is_method: ->
+    @constructor.METHOD_KEYS.has @keycode()
+
   motion: ->
-    @constructor.KEYCODE_MAP.get(@payload.keycode) || null
-
-
-class MethodKeyAction extends KeyDownAction
-
-  @KEYCODE_MAP: Immutable.Map [
-    [82, 'restart']
-  ]
+    @constructor.MOTION_KEYS.get @keycode()
 
   method: ->
-    @constructor.KEYCODE_MAP.get(@payload.keycode) || null
+    @constructor.METHOD_KEYS.get @keycode()
+
+AbstractAction.implemented_by(KeyDownAction)
 
 
-module.exports = {KeyDownAction, MotionKeyAction, MethodKeyAction}
+module.exports = {KeyDownAction}
