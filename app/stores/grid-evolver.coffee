@@ -1,4 +1,3 @@
-{MotionKeyAction, MethodKeyAction} = require '../actions'
 {Ticker, XY, GAME, Random} = require '../utility'
 Cell = require '../components/cell'
 {GRID, LEVEL} = require '../settings'
@@ -49,16 +48,15 @@ GridEvolver = Object.create EmittingStore,
     ]
 
   _handle_action:
-    value: (action) ->
-      if action.is_a MotionKeyAction
-        motion = action.motion()
-
+    value: (keydown) ->
+      if keydown.is_motion()
+        motion = keydown.motion()
         if motion? && not GAME.over()
           GAME.set_motion(motion)
           if not Ticker.ticking()
             @_tick()
-      else if action.is_a MethodKeyAction
-        method = @_METHOD_KEYMAP.get(action.method())
+      else if keydown.is_method()
+        method = @_METHOD_KEYMAP.get(keydown.method())
         @[method]()
 
   _emit_cells:
