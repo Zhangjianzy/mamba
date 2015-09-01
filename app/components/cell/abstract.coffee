@@ -12,30 +12,20 @@ AbstractCell = ABC
         @constructor.shortname
 
 
-class Item extends AbstractCell
+Item = AbstractCell.implementation class Item
   @shortname: "item"
-AbstractCell.implemented_by Item
 
-
-class Void extends AbstractCell
+Void = AbstractCell.implementation class Void
   @shortname: "void"
-AbstractCell.implemented_by Void
 
-
-class Wall extends AbstractCell
+Wall = AbstractCell.implementation class Wall
   @shortname: "wall"
-AbstractCell.implemented_by Wall
 
-
-class Snake extends AbstractCell
+Snake = AbstractCell.implementation class Snake
   @shortname: "snake"
-AbstractCell.implemented_by Snake
 
-
-class Collision extends AbstractCell
+Collision = AbstractCell.implementation class Collision
   @shortname: "collision"
-AbstractCell.implemented_by Collision
-
 
 module.exports =
   ITEM: new Item

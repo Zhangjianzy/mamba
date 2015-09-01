@@ -20,35 +20,30 @@ AbstractKey = ABC
       ['shortname', _.isString]
     )
 
-class Left extends AbstractKey
+Left = AbstractKey.implementation class Left
   @symbol: "←"
   @keycode: 37
   @shortname: "left"
-AbstractKey.implemented_by(Left)
 
-class Up extends AbstractKey
+Up = AbstractKey.implementation class Up
   @symbol: "↑"
   @keycode: 38
   @shortname: "up"
-AbstractKey.implemented_by(Up)
 
-class Right extends AbstractKey
+Right = AbstractKey.implementation class Right
   @symbol: "→"
   @keycode: 39
   @shortname: "right"
-AbstractKey.implemented_by(Right)
 
-class Down extends AbstractKey
+Down = AbstractKey.implementation class Down
   @symbol: "↓"
   @keycode: 40
   @shortname: "down"
-AbstractKey.implemented_by(Down)
 
-class R extends AbstractKey
+R = AbstractKey.implementation class R
   @symbol: "R"
   @keycode: 82
   @shortname: "r"
-AbstractKey.implemented_by(R)
 
 
 module.exports =

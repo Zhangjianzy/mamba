@@ -1,5 +1,5 @@
 React = require 'react'
-cells = require './types'
+cells = require './abstract'
 {LEVEL} = require '../../settings'
 Immutable = require 'immutable'
 

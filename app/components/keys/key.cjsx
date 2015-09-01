@@ -2,7 +2,7 @@ React = require 'react'
 ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
 
 
-Keys = require './types'
+Keys = require './abstract'
 _ = require 'underscore'
 
 Key = React.createClass

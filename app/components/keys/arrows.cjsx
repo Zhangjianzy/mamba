@@ -1,7 +1,7 @@
 React = require 'react'
 Immutable = require 'immutable'
 
-Keys = require './types'
+Keys = require './abstract'
 Key = require './key'
 Deactivates = require './deactivates'
 {PressedKeys} = require '../../stores'
