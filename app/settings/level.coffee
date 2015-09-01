@@ -1,6 +1,6 @@
 Immutable = require 'immutable'
 _ = require 'underscore'
-Cells = require '../components/cell/types' # can't require cell directly :(
+Cells = require '../components/cell/abstract' # can't require cell directly :(
 
 
 CELL_QUANTITIES= Immutable.Map [
@@ -29,4 +29,3 @@ module.exports = Object.create null,
     enumerable: true
     value: (cell) ->
       CELL_QUANTITIES.get cell
-

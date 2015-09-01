@@ -1,5 +1,5 @@
 React = require 'react'
-Keys = require './types'
+Keys = require './abstract'
 Key = require './key'
 Deactivates = require './deactivates'
 {PressedKeys} = require '../../stores'
