@@ -4,7 +4,7 @@ Immutable = require 'immutable'
 {XY} = require '../utility'
 
 
-class KeyDownAction extends AbstractAction
+KeyDownAction = AbstractAction.implementation class KeyDownAction
   @KEYCODES: Immutable.Set [
     37 # ←
     38 # ↑
@@ -49,8 +49,6 @@ class KeyDownAction extends AbstractAction
 
   method: ->
     @constructor.METHOD_KEYS.get @keycode()
-
-AbstractAction.implemented_by(KeyDownAction)
 
 
 module.exports = {KeyDownAction}
