@@ -26,7 +26,7 @@
     "bower": "^1.4.1",
     "browserify": "^10.2.6",
     "coffee-script": "^1.9.3",
-    "covenance": "^1.1.0",
+    "covenance": "^2.0.0",
     "del": "^1.2.0",
     "exorcist": "^0.4.0",
     "flux": "^2.0.3",
