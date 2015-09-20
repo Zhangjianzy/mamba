@@ -31,7 +31,9 @@ KeyDownAction = AbstractAction.implementation class KeyDownAction
   @post_value_of_hook: (payload) ->
     {keycode} = payload
     if @KEYCODES.has keycode
-      super(payload)
+      # We'd like to use super(payload), but this means
+      # something different in CoffeeScript than in ES6
+      Object.getPrototypeOf(@).post_value_of_hook.call(@, payload)
     else
       throw new Error "Unsupported keycode: #{keycode}; try #{@KEYCODES}"
 
